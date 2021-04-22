@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 class ScoreCardWidget extends StatelessWidget {
   final int score;
-  const ScoreCardWidget({Key? key ,  required this.score}) : super(key: key);
+  final int questionCount;
+  const ScoreCardWidget({Key? key ,  required this.score, required this.questionCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class ScoreCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(flex: 1, child: ChartWidget()),
+                Expanded(flex: 1, child: ChartWidget(questionTotal: questionCount,score: score,)),
                 Expanded(
                   flex: 3,
                   child: Padding(

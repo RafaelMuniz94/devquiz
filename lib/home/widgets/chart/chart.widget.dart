@@ -3,8 +3,9 @@ import 'package:DevQuiz/core/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class ChartWidget extends StatelessWidget {
-  
-  const ChartWidget({Key? key}) : super(key: key);
+  final int score;
+  final int questionTotal;
+  const ChartWidget({Key? key, required this.questionTotal, required this.score}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +20,12 @@ class ChartWidget extends StatelessWidget {
               width: 80,
               child: CircularProgressIndicator(
                 strokeWidth: 10,
-                value: .75,
+                value: (score/questionTotal),
                 backgroundColor: AppColors.chartSecondary,
                 valueColor: AlwaysStoppedAnimation<Color>(AppColors.chartPrimary),
               )),
         ),
-        Center(child: Text("75%", style: AppTextStyles.heading))
+        Center(child: Text("${(score/questionTotal).round()}%", style: AppTextStyles.heading))
       ]), //Pilha para colocar objetos empilhados
     );
   }

@@ -1,3 +1,4 @@
+import 'package:DevQuiz/challenge/challenge_page.dart';
 import 'package:DevQuiz/core/core.dart';
 import 'package:DevQuiz/home/home_controller.dart';
 import 'package:DevQuiz/home/home_state.dart';
@@ -34,7 +35,7 @@ class _HomepageState extends State<HomePage>{
   Widget build(BuildContext context) {
     if(controller.state == HomeState.success){
     return Scaffold(
-      appBar: AppBarWidget(user :controller.user!),
+      appBar: AppBarWidget(user :controller.user!, totalCount: controller.quizzes!.fold(0,(quizz,atual) => quizz! + atual.questions.length) ?? 0,),
       body: Padding(
        padding: const EdgeInsets.symmetric(horizontal:1,vertical:24),
         child: Column(
@@ -54,10 +55,13 @@ class _HomepageState extends State<HomePage>{
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
                   crossAxisCount: 2,
-                  children: controller.quizzes!.map((e) => QuizCardWidget(
-                    label: e.title,
-                    answered: e.questionsAnswered,
-                    questionsCount: e.questions.length,
+                  children: controller.quizzes!.map((quiz) => QuizCardWidget(
+                    label: quiz.title,
+                    answered: quiz.questionsAnswered,
+                    questionsCount: quiz.questions.length,
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChallengePage(questions: quiz.questions,)));
+                    },
                   )).toList(),
                 ))
                 ]
