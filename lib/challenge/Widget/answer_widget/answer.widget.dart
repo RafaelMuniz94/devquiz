@@ -6,14 +6,13 @@ class AnswerWidget extends StatelessWidget {
   final AnswerModel answer;
   final bool isSelected;
   final bool disabled;
-  final VoidCallback onTap;
+  final ValueChanged<bool> onTap;
   const AnswerWidget(
       {Key? key,
       required this.answer,
       required this.onTap,
       this.isSelected = false,
-      this.disabled = false
-      })
+      this.disabled = false})
       : super(key: key);
 
   Color get _selectedColorRight =>
@@ -28,21 +27,24 @@ class AnswerWidget extends StatelessWidget {
   Color get _selectedBorderCardRight =>
       answer.isRight ? AppColors.green : AppColors.red;
 
-  TextStyle get _selectedTextStyleRight => answer.isRight? AppTextStyles.bodyDarkGreen : AppTextStyles.bodyDarkRed;
+  TextStyle get _selectedTextStyleRight =>
+      answer.isRight ? AppTextStyles.bodyDarkGreen : AppTextStyles.bodyDarkRed;
 
-  IconData get _selectedIconRight => answer.isRight? Icons.check : Icons.error;
+  IconData get _selectedIconRight => answer.isRight ? Icons.check : Icons.error;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
       child: IgnorePointer(
-              ignoring: disabled,
-              child: GestureDetector(
-          onTap: onTap,
-                child: Container(
+        ignoring: disabled,
+        child: GestureDetector(
+          onTap: () {
+            onTap(answer.isRight);
+          },
+          child: Container(
             decoration: BoxDecoration(
-                color: isSelected ? _selectedColorCardRight:AppColors.white,
+                color: isSelected ? _selectedColorCardRight : AppColors.white,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.fromBorderSide(BorderSide(
                   color: isSelected ? _selectedBorderCardRight : AppColors.grey,
@@ -52,16 +54,24 @@ class AnswerWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(child: Text(answer.title, style: isSelected ? _selectedTextStyleRight: AppTextStyles.body)),
+                  Expanded(
+                      child: Text(answer.title,
+                          style: isSelected
+                              ? _selectedTextStyleRight
+                              : AppTextStyles.body)),
                   Container(
                     width: 24,
                     height: 24,
                     decoration: BoxDecoration(
-                        color: isSelected ? _selectedColorRight: AppColors.white,
+                        color:
+                            isSelected ? _selectedColorRight : AppColors.white,
                         borderRadius: BorderRadius.circular(500),
-                        border: Border.fromBorderSide(
-                            BorderSide(color: isSelected ? _selectedBorderRight : AppColors.border))),
-                    child: Icon(isSelected ? _selectedIconRight : null, size: 16, color:  AppColors.white),
+                        border: Border.fromBorderSide(BorderSide(
+                            color: isSelected
+                                ? _selectedBorderRight
+                                : AppColors.border))),
+                    child: Icon(isSelected ? _selectedIconRight : null,
+                        size: 16, color: AppColors.white),
                   )
                 ],
               ),

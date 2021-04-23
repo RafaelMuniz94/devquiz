@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 class QuizQuestionWidget extends StatefulWidget{
   final QuestionModel question;
-  final VoidCallback onChange;
-  const QuizQuestionWidget({Key? key, required this.question, required this.onChange}) : super(key:key);
+  final ValueChanged<bool> onSelected;
+  const QuizQuestionWidget({Key? key, required this.question, required this.onSelected}) : super(key:key);
 
   @override
   _QuizQuestionWidgetState createState() => _QuizQuestionWidgetState();
@@ -29,13 +29,13 @@ class _QuizQuestionWidgetState extends State<QuizQuestionWidget> {
             answer: answers(i),
             disabled: selectedIndex != -1,
             isSelected: i == selectedIndex,
-            onTap: (){
+            onTap:  (value){
               selectedIndex = i;
               
               setState((){
 
               });
-              Future.delayed(Duration(milliseconds: 1000)).then((value) => widget.onChange());
+              Future.delayed(Duration(milliseconds: 1000)).then((_) => widget.onSelected(value)); // Quando a funçao devolve um value que deve ser ignorado, pode se usar o _
             },
           )
         

@@ -4,9 +4,8 @@ import 'package:DevQuiz/home/widgets/chart/chart.widget.dart';
 import 'package:flutter/material.dart';
 
 class ScoreCardWidget extends StatelessWidget {
-  final int score;
-  final int questionCount;
-  const ScoreCardWidget({Key? key ,  required this.score, required this.questionCount}) : super(key: key);
+ final double percent;
+  const ScoreCardWidget({Key? key ,  required this.percent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class ScoreCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(flex: 1, child: ChartWidget(questionTotal: questionCount,score: score,)),
+                Expanded(flex: 1, child: ChartWidget(percent: percent,)),
                 Expanded(
                   flex: 3,
                   child: Padding(
